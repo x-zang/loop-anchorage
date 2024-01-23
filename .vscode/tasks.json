@@ -1,0 +1,29 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cargo",
+			"command": "build",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/src/rust/rust-demultiplex"
+			},
+			"group": "build",
+			"label": "rust: cargo build rust-demultiplex"
+		},
+		{
+			"type": "cargo",
+			"command": "build",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/src/rust/rust-umi"
+			},
+			"group": "build",
+			"label": "rust: cargo build rust-umi"
+		}
+	]
+}
