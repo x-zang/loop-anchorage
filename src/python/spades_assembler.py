@@ -379,7 +379,7 @@ def do_assembly_iteration(forward_fq, reverse_fq, threads, sampling_target, pcr_
 
 def create_solo_barcodes_dict(solo_barcodes, solo_contig_barcodes):
     result = {}
-    if solo_barcodes is not None:
+    if solo_barcodes is not None and len(solo_barcodes) > 0:
         for solo_barcode, solo_contig_barcode in zip(solo_barcodes.rstrip().split(","), solo_contig_barcodes.rstrip().split(",")):
             result[solo_barcode] = solo_contig_barcode
     return result
@@ -412,7 +412,7 @@ def spades_assembly(input_dir, output_prefix, pcr_primer, anchor_start, anchor_e
                 #
                 contigs = []
                 contig_counts = {}
-                for _ in range(assembly_iterations if sampling_target < read_count else 1):
+                for _ in range(assembly_iterations if sampling_target is not None and sampling_target < read_count else 1):
                     for contig in do_assembly_iteration(input_forward_fq, input_reverse_fq, threads, sampling_target, pcr_primer, r1_orientation):
                         if contig in contig_counts:
                             contig_counts[contig] += 1
@@ -458,8 +458,8 @@ if __name__ == "__main__":
     parser.add_argument("--threads", type = int, dest="threads", default = 1, help="Number of threads")
     parser.add_argument("--assembly-iterations", type=int, dest="assembly_iterations", default = 1, help="Number of iterations to repeat assembly (for Solo)")
     parser.add_argument("--sampling-target", type=int, dest="sampling_target", default=None, help="Down-sampling target for each assembly iteration (for Solo)")
-    parser.add_argument("--solo-contig-barcodes", dest="solo_contig_barcodes", default=None, help="Comma-delimited list of contig barcodes (for Solo)")
-    parser.add_argument("--solo-barcodes", dest="solo_barcodes", default=None, help="Comma-delimited list of Solo barcodes")
+    parser.add_argument("--solo-contig-barcodes", dest="solo_contig_barcodes", default="", help="Comma-delimited list of contig barcodes (for Solo)")
+    parser.add_argument("--solo-barcodes", dest="solo_barcodes", default="", help="Comma-delimited list of Solo barcodes")
     parser.add_argument("--r1-orientation", dest="r1_orientation", default = R1_ORIENTATION_UNKNOWN, help="Orientation of R1 short reads (if known), relative to long read (FORWARD, REVERSE, or UNKNOWN)")
     parser.add_argument("input_dir")
     parser.add_argument("output_prefix")
