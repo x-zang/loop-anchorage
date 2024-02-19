@@ -6,7 +6,7 @@ RUN cd /build/rust-demultiplex && cargo build --release && cp target/release/rus
 COPY src/rust/rust-umi /build/rust-umi
 RUN cd /build/rust-umi && cargo build --release && cp target/release/rust-umi /usr/bin/rust-umi
 FROM ubuntu:focal
-RUN apt-get update && apt-get install --no-install-recommends -y pigz unzip python3 procps python-is-python3 default-jdk ca-certificates wget && apt-get clean && rm -rf /var/lib/apt/lists/* 
+RUN apt-get update && apt-get install --no-install-recommends -y pigz unzip python3 python3-pip procps python-is-python3 default-jdk ca-certificates wget && apt-get clean && rm -rf /var/lib/apt/lists/* 
 COPY --from=rust_build /usr/bin/rust-demultiplex /usr/bin/rust-demultiplex
 COPY --from=rust_build /usr/bin/rust-umi /usr/bin/rust-umi
 COPY src/python/spades_assembler.py /usr/bin/spades_assembler.py
