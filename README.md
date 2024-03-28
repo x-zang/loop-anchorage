@@ -1,6 +1,11 @@
+# Loop-anchorage
+
+The loop-anchorage is a fork of [LoopCore](https://github.com/Elembio/loop-core), but the core assembly task is performed by the Anchorage algorithm instead of SPAdes.
+The loop-anchorage repository is not configured to be readily usable with Docker yet. Users still need to install anchorage and its dependencies manually before using.
+
 # LoopCore
 
-The LoopCore repository provides a set of related utilities for processing LoopSeq data into assembled contigs. Simple and modular utilites provide
+The [LoopCore](https://github.com/Elembio/loop-core) repository provides a set of related utilities for processing LoopSeq data into assembled contigs. Simple and modular utilites provide
 
 * Simplified installation and deployment
 * Easier development of analysis methods
