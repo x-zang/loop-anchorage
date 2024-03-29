@@ -181,11 +181,19 @@ main.nf is a Nextflow workflow that provides a reference implementation of lever
 
 The Dockerfile in the root directory of this repository can be used to initialize an environment with all of the necessary dependencies to execute the workflow. Nextflow parameters are used to pass options that control both the execution environment and analysis of the workflow.  These options are separated into different Nextflow config files. The "nextflow/configs/environments" directory contains params and config for execution in different computing environments. For example. "devenv.config" is appropriate for running small development runs on a local PC, while "docker.config" would support execution on highly parallel clusters with docker support. The "nextflow/configs/workflows" defines configs with fixed parameter values for certain assay types. Profiles can then be used to easily mix and max different analysis types in different hardware contexts. Profiles are defined in "nextflow.config".
 
-For example, the following command could be used to combined processing of PCR amplicon data in the development environment.  
+For example, the following command could be used for combined processing of PCR amplicon data in the development environment.  
+```
+/opt/nextflow/bin/nextflow run main.nf \
+    --R1 <input_R1.fastq.gz> \
+    --R2 <input_R2.fastq.gz> \
+    --sample_list <list of barcodes for demux> \
+    --adapters_file <Trimmomatic adapters file> \
+    --out_dir <output dir> \
+    -profile devenv,pcr_amplicon \
+    -c nextflow.config
+```
+See `src/nextflow/configs` for more environment (devnev, docker, tower) or workflow (pcr_amplicon, loopseq_ht_solo) profiles.
 
-```
-/opt/nextflow/bin/nextflow run main.nf --R1 <input_R1.fastq.gz> --R2 <input_R2.fastq.gz> --sample_list <list of barcodes for demux> --adapters_file <Trimmomatic adapters file> --out_dir <output dir> -profile devenv,pcr_amplicon -c nextflow.config
-```
 
 # Development 
 
